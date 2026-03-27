@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Add Result</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+<body>
+
+
+<!-- NAVBAR -->
+<nav class="bg-white shadow-md">
+
+    <div class="max-w-7xl mx-auto px-4">
+
+        <div class="flex justify-between items-center h-16">
+
+            <!-- Logo -->
+            <div class="text-xl font-bold text-blue-600">
+                Result Viewer
+            </div>
+
+
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex space-x-8 font-medium">
+                <a th:href="@{/}" class="text-gray-700 hover:text-blue-600">Home</a>
+                <a th:href="@{'/view-result'}" class="text-gray-700 hover:text-blue-600">View Result</a>
+                <a th:href="@{/admin/add-result}"  class="text-gray-700 hover:text-blue-600">Add Result</a>
+                <a th:href="@{'/help'}"  class="text-gray-700 hover:text-blue-600">Help</a>
+            </div>
+
+
+            <!-- Mobile Button -->
+            <div class="md:hidden">
+                <button id="menu-btn" class="text-gray-700 focus:outline-none">
+
+                    <svg xmlns="http://www.w3.org/2000/svg"
+                         class="h-6 w-6"
+                         fill="none"
+                         viewBox="0 0 24 24"
+                         stroke="currentColor">
+
+                        <path stroke-linecap="round"
+                              stroke-linejoin="round"
+                              stroke-width="2"
+                              d="M4 6h16M4 12h16M4 18h16"/>
+
+                    </svg>
+
+                </button>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="hidden md:hidden px-4 pb-4">
+
+        <a href="#" class="block py-2 text-gray-700 hover:text-blue-600">Home</a>
+        <a href="#" class="block py-2 text-gray-700 hover:text-blue-600">View Result</a>
+        <a href="#" class="block py-2 text-gray-700 hover:text-blue-600">Add Result</a>
+        <a href="#" class="block py-2 text-gray-700 hover:text-blue-600">Help</a>
+
+    </div>
+
+</nav>
+
+<!--show add result form-->
+
+<div class="lg:w-1/2 w-full   py-10 border shadow px-5 mt-3 rounded mx-auto">
+    <h1 class="text-3xl text-center text-gray-700 font-bold">Add result</h1>
+    <p class="mt-2 text-gray-500 text-center">Add student result to database..</p>
+
+    <form novalidate th:action="@{'/admin/add-result-action'}" th:object="${studentForm}" method="post" enctype="multipart/form-data">
+
+            <!-- name-->
+
+        <div class="mt-5">
+            <label for="studentName" class="block mb-2.5 text-sm font-medium text-gray-900">Student Name</label>
+            <input
+                    th:field="*{name}"
+                    type="text"
+                   id="studentName"
+                   class="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body"
+                   placeholder="Enter student name"
+                   required />
+            <span class="text-red-700 p-2" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+        </div>
+
+        <!--        rollNumber-->
+
+        <div class="mt-5">
+            <label for="rollNumber" class="block mb-2.5 text-sm font-medium text-gray-900">RollNumber</label>
+            <input
+                    th:field="*{rollNumber}"
+                    type="text"
+                    id="rollNumber"
+                    class="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body"
+                    placeholder="Enter rollNumber"
+                    required />
+            <span class="text-red-700 p-2" th:if="${#fields.hasErrors('rollNumber')}" th:errors="*{rollNumber}"></span>
+        </div>
+
+<!--Email-->
+
+        <div class="mt-5">
+            <label for="email" class="block mb-2.5 text-sm font-medium text-gray-900">Email</label>
+            <input
+                    th:field="*{email}"
+                    type="text"
+                    id="email"
+                    class="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body"
+                    placeholder="Enter email"
+                    required />
+            <span class="text-red-700 p-2" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+        </div>
+
+<!--        Address-->
+        <div class="mt-5">
+            <label for="address" class="block mb-2.5 text-sm font-medium text-gray-900">Address</label>
+            <textarea
+                    th:field="*{address}"
+                    id="address"
+                    class="bg-neutral-secondary-medium h-30 border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body"
+                    placeholder="Enter Address"
+                    required>
+            </textarea>
+
+            <span class="text-red-700 p-2"
+                  th:if="${#fields.hasErrors('address')}"
+                  th:errors="*{address}">
+            </span>
+        </div>
+
+
+<!--        School Name-->
+        <div class="mt-5">
+            <label for="schoolName" class="block mb-2.5 text-sm font-medium text-gray-900">SchoolName</label>
+            <input
+                    th:field="*{schoolName}"
+                    type="text"
+                    id="schoolName"
+                    class="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body"
+                    placeholder="Enter schoolName"
+                    required />
+            <span class="text-red-700 p-2" th:if="${#fields.hasErrors('schoolName')}" th:errors="*{schoolName}"></span>
+        </div>
+
+<!--        Date of Birth -->
+
+        <div class="mt-5">
+            <label for="dateOfBirth" class="block mb-2.5 text-sm font-medium text-gray-900">DateOfBirth</label>
+            <input
+                    th:field="*{dateOfBirth}"
+                    type="date"
+                    id="dateOfBirth"
+                    class="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body"
+                    placeholder="Enter Date Of Birth"
+                    required />
+            <span class="text-red-700 p-2" th:if="${#fields.hasErrors('dateOfBirth')}" th:errors="*{dateOfBirth}"></span>
+        </div>
+
+<!--        Standard-->
+        <div class="mt-5">
+
+            <label for="standard" class="block mb-2.5 text-sm font-medium text-gray-900">Standard</label>
+            <select class="block w-full px-3 py-2.5 bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand shadow-xs placeholder:text-body" id="standard" th:field="*{standard}">
+
+                <option th:each="standard : ${standardOptions}" th:value="${standard}"  th:text="${standard}"></option>
+
+            </select>
+
+        </div>
+
+<!--   Father Name     -->
+
+        <div class="mt-5">
+            <label for="fatherName" class="block mb-2.5 text-sm font-medium text-gray-900">FatherName</label>
+            <input
+                    th:field="*{fatherName}"
+                    type="text"
+                    id="fatherName"
+                    class="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body"
+                    placeholder="Enter father name"
+                    required />
+            <span class="text-red-700 p-2" th:if="${#fields.hasErrors('fatherName')}" th:errors="*{fatherName}"></span>
+        </div>
+
+<!--        Gender-->
+
+        <div class="mt-4">
+            <label class="block mb-2.5 text-sm font-medium text-gray-900">Select Gender</label>
+
+            <div class="flex items-center mb-4">
+                <input id="default-radio-1" type="radio" th:field="*{gender}" value="male" class="w-4 h-4 text-blue-600 bg-gray-700 border-gray-300 focus:outline-none focus:ring-blue-500 ">
+                <label for="default-radio-1" class="select-none ms-2 text-sm font-medium text-heading">Male</label>
+            </div>
+            <div class="flex items-center mb-4">
+                <input id="default-radio-2" type="radio" th:field="*{gender}" value="female" class="w-4 h-4 text-blue-600 bg-gray-700 border-gray-300 focus:outline-none focus:ring-blue-500">
+                <label for="default-radio-2" class="select-none ms-2 text-sm font-medium text-heading">Female</label>
+            </div>
+
+            <span class="text-red-500" th:if="${#fields.hasErrors('gender')}" th:errors="*{gender}"></span>
+
+        </div>
+
+<!--        Subjects and Marks-->
+        <div >
+            <div id="marks_container" class="space-y-4">
+
+<!--                -->
+
+
+            </div>
+
+            
+        </div>
+
+            <div class="flex justify-center my-4">
+                <button onclick="addMarksRow()" type="button"
+                        class="text-white bg-red-600 border border-transparent hover:bg-red-700 focus:ring-4 focus:ring-red-300 shadow-xs font-medium leading-5 rounded text-sm px-4 py-2.5 focus:outline-none">
+                    Add Subject Marks
+                </button>
+            </div>
+
+<!--        Add result and Clear Button-->
+
+        <div class="mt-4 flex justify-center gap-3">
+            <!-- Add Result Button -->
+            <button type="submit"
+                    class="text-white bg-blue-600 border border-transparent hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none">
+                Add Result
+            </button>
+
+            <!-- Clear Button -->
+            <button type="reset"
+                    class="text-body bg-gray-200 border border-gray-300 hover:bg-gray-300 focus:ring-4 focus:ring-gray-200 shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none">
+                Clear
+            </button>
+
+        </div>
+
+    </form>
+</div>
+
+<script>
+    let index = 0;
+    function addMarksRow() {
+
+
+        const container = document.getElementById('marks_container');
+        container.insertAdjacentHTML('beforeend',`
+            <div class="flex gap-4 rounded border px-3 py-4">
+                <div class="flex flex-col">
+                    <label>Subject</label>
+                    <input name="marks[${index}].subjectName" class="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body"  type="text" placeholder="Enter subject">
+                </div>
+
+                <div class="flex flex-col">
+                    <label>Marks</label>
+                   <input name="marks[${index}].marks" class="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body"  type="text" placeholder="Enter Marks">
+                </div>
+
+                <div class="flex flex-col">
+                    <label>Full Marks</label>
+                   <input name="marks[${index}].fullMarks" class="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body"  type="text" placeholder="Enter Full Marks">
+                </div>
+
+                <div class="flex flex-col">
+                    <label>Grade</label>
+                    <input name="marks[${index}].grade" class="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body" type="text" placeholder="Enter Grade">
+                </div>
+
+                <div class="flex flex-col">
+                    <label>Feedback</label>
+                     <input name="marks[${index}].feedback"  class="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body"  type="text" placeholder="Enter Feedback">
+                </div>
+            </div>
+        `)
+
+        index++;
+
+    }
+</script>
+
+</body>
+</html>
